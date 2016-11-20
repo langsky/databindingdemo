@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="io.ican.hgl.databind.eventhandle.CustomEventBinding"/>
+
+        <import type="io.ican.hgl.databind.eventhandle.LaunchEventBinding"/>
+
+        <variable
+                name="listener"
+                type="CustomEventBinding"/>
+    </data>
+
+    <LinearLayout
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/activity_base"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="io.ican.hgl.databind.BaseActivity">
+
+        <Button
+                android:text="Event Binding Test"
+                android:onClick="@{()->listener.onClickHandle(LaunchEventBinding.LAUNCH_BASIC_TEST_ACTIVITY)}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <Button
+                android:text="Collection Test"
+                android:onClick="@{()->listener.onClickHandle(LaunchEventBinding.LAUNCH_COLLECTION_TEST_ACTIVITY)}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <Button
+                android:text="Data Binding Test"
+                android:onClick="@{()->listener.onClickHandle(LaunchEventBinding.LAUNCH_DATA_BINDING_TEST_ACTIVITY)}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</layout>
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="io.ican.hgl.databind.observable.CustomBaseObservable"/>
+
+        <import type="io.ican.hgl.databind.observable.CustomObservableField"/>
+
+        <import type="android.databinding.ObservableArrayMap"/>
+
+        <import type="io.ican.hgl.databind.setter.CustomLayoutStateChangeListener.OnViewAttachedToWindow"/>
+
+        <import type="io.ican.hgl.databind.setter.CustomLayoutStateChangeListener.OnViewDetachedFromWindow"/>
+
+        <variable
+                name="user"
+                type="CustomBaseObservable"/>
+
+        <variable
+                name="user2"
+                type="CustomObservableField"/>
+        <!--be careful, don't use \< and \>, just &lt; and &gt; instead -->
+        <variable
+                name="user3"
+                type="ObservableArrayMap&lt;String, String&gt;"/>
+
+        <variable
+                name="attach"
+                type="OnViewAttachedToWindow"/>
+
+        <variable
+                name="detach"
+                type="OnViewDetachedFromWindow"/>
+    </data>
+
+    <LinearLayout
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/activity_binding_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="io.ican.hgl.databind.DataBindingActivity">
+
+        <Button
+                android:id="@+id/changeName"
+                android:text="CustomBaseObservable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:text="@{@string/user_name(user.firstName, user.lastName)}"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <Button
+                android:id="@+id/changeName2"
+                android:text="CustomObservableField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:text="@{@string/user_name(user2.firstName, user2.lastName)}"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <Button
+                android:id="@+id/changeName3"
+                android:text="CustomObservableArrayMap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:text='@{@string/user_name(user3["firstName"], user3["lastName"])}'
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <TextView
+                android:text='@{@string/user_name(user3["firstName"], user3["lastName"])}'
+                app:text='@{"origin text"}'
+                android:onViewAttachedToWindow="@{attach}"
+                android:onViewDetachedFromWindow="@{detach}"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+    </LinearLayout>
+
+</layout>

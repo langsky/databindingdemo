@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">data binding test</string>
+    <string name="orange">There are %d Oranges</string>
+    <plurals name="apple">
+        <item quantity="one">There is an apple</item>
+        <item quantity="other">There are %d apples</item>
+    </plurals>
+
+    <string name="user_name">The user\'s name is %1$s %2$s.</string>
+
+</resources>

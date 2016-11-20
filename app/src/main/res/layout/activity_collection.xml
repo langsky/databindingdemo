@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+
+        <import type="java.util.List"/>
+
+        <import type="java.util.Map"/>
+
+        <import type="io.ican.hgl.databind.datahandle.View"/>
+
+        <variable
+                name="viewList"
+                type="List&lt;View&gt;"/>
+
+        <variable
+                name="viewMap"
+                type="Map&lt;String, View&gt;"/>
+
+        <variable
+                name="index"
+                type="int"/>
+
+        <variable
+                name="stringIndex"
+                type="String"/>
+    </data>
+
+    <LinearLayout
+
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/activity_collection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="io.ican.hgl.databind.CollectionActivity">
+
+        <!--there List & Map can use []-->
+        <TextView
+                android:text="@{viewList[index].name}"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <ImageView
+                android:background="@{View.bgConverter(viewMap[stringIndex].background)}"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <ImageView
+                android:background='@{View.bgConverter(viewMap["just null test"].background)}'
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <!--String formatter-->
+        <TextView
+                android:text='@{@string/orange(index)}'
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <!--plurals -->
+        <TextView
+                android:text='@{@plurals/apple(1, index)}'
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <TextView
+                android:text='@{@plurals/apple(index, index)}'
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+    </LinearLayout>
+
+</layout>

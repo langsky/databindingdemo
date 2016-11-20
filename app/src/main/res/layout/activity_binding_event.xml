@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+    <!--use class, no namespace-->
+    <data class="ContactItem">
+
+        <import type="io.ican.hgl.databind.eventhandle.ViewListenerInterface"/>
+
+        <import type="io.ican.hgl.databind.eventhandle.CustomEventBinding"/>
+
+        <import type="io.ican.hgl.databind.eventhandle.CustomMotionEvent"/>
+
+        <import type="android.view.View"/>
+
+        <!--use alias-->
+        <import
+                type="io.ican.hgl.databind.datahandle.View"
+                alias="MyView"/>
+
+        <variable
+                name="handler"
+                type="ViewListenerInterface"/>
+
+        <variable
+                name="listener"
+                type="CustomEventBinding"/>
+
+        <variable
+                name="event"
+                type="CustomMotionEvent"/>
+
+        <variable
+                name="customView"
+                type="MyView"/>
+    </data>
+
+    <LinearLayout
+
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/activity_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="io.ican.hgl.databind.EventBindingActivity">
+        <!--when listener binding, you must use "::" not "."-->
+        <Button
+                android:text="Method References"
+                android:onClick="@{handler::onClickHandle}"
+                android:onLongClick="@{handler::onLongClickHandle}"
+                android:onTouch="@{handler::onTouchHandle}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <!--there is expressions-->
+        <!--no "android:onTouch" in android namespace, but we can also use it in data binding.-->
+        <Button
+                android:text="Listener Binding"
+                android:onClick="@{()->listener.onClickHandle(0)}"
+                android:onLongClick="@{(view)->listener.onLongClickHandle(event)}"
+                android:onTouch="@{(view, mEvent)->listener.onTouchHandle(view, mEvent)}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <!--complex listener should be simple, for example, this use "android.onSearchClick"-->
+        <SearchView
+                android:onSearchClick="@{()-> listener.onClickHandle(0)}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <!--here uses some converters-->
+        <ImageView
+                android:visibility="@{MyView.visibleToInt(customView.visible)}"
+                android:background="@{MyView.errorConverter(customView.error)}"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+        <!--test include-->
+        <include
+                layout="@layout/include_layout"
+                app:customView="@{customView}"/>
+        <!--use "??" instead of "==null ? :"-->
+        <TextView
+                android:text='@{customView.name ?? "NO NAME"}'
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <TextView
+                android:text="@{MyView.staticMethod()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>
